@@ -12,6 +12,6 @@
   <!-- List of individual projects -->
   <project name="test.aosp.main" path="test.aosp.main" />
   <project name="test.aosp.subrepo" path="test.aosp.subrepo" />
-  <project name="test.aosp.nested" path="test.aosp.nested" />
+  <project name="test.aosp.nested" path="test.nes.nested.nested" />
 
 </manifest>
