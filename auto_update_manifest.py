@@ -317,20 +317,19 @@ if os.path.exists(".git/rebase-merge") or os.path.exists(".git/rebase-apply"):
     print("[INFO] Aborting previous rebase")
     subprocess.run(["git", "rebase", "--abort"], check=False)
 
-# Stash **all** changes, including untracked files and ignored ones
-print("[INFO] Stashing any local changes...")
-stash_code, stash_out, _ = git_command([
-    "git", "stash", "push", "--include-untracked", "--all", "-m", "pre-rebase backup"
+print("[INFO] Stashing local changes before rebase...")
+stash_code, stash_out, stash_err = git_command([
+    "git", "stash", "push", "--all", "-m", "pre-rebase backup"
 ])
-if stash_code == 0 and "No local changes" not in stash_out:
-    print("[INFO] Changes stashed successfully")
+if stash_code == 0:
+    print(f"[INFO] Stashed changes: {stash_out.strip()}")
 else:
-    print("[INFO] No changes to stash")
+    print(f"[WARN] Could not stash changes: {stash_err.strip()}")
 
 # Checkout main branch
 subprocess.run(["git", "checkout", BRANCH], check=True)
 
-# Fetch remote
+# Fetch latest remote
 subprocess.run(["git", "fetch", "origin", BRANCH], check=True)
 
 # Rebase local main on top of origin/main
