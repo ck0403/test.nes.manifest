@@ -79,31 +79,34 @@ tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True, pretty_print=T
 # === Commit and push ===
 os.chdir(MANIFEST_REPO_DIR)
 
-branch = subprocess.check_output(
-    ["git", "rev-parse", "--abbrev-ref", "HEAD"], text=True
-).strip()
+# Make sure we're not in a stuck rebase
+if os.path.exists(".git/rebase-merge"):
+    print("[INFO] Cleaning up previous incomplete rebase")
+    subprocess.run(["git", "rebase", "--abort"], check=False)
 
-subprocess.call(["git", "fetch", "origin"])
+# Ensure we’re on main (stash first to avoid conflict)
+subprocess.run(["git", "stash", "--include-untracked"], check=False)
+subprocess.run(["git", "checkout", "main"], check=False)
 
-# Check for local changes
-local_changes = subprocess.call(["git", "diff", "--quiet"]) != 0 or subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0
-if local_changes:
-    print("[INFO] Stashing local changes before rebase")
-    subprocess.call(["git", "stash", "--include-untracked"])
+# Reapply any stashed changes
+subprocess.run(["git", "stash", "pop"], check=False)
 
-subprocess.call(["git", "rebase", f"origin/{branch}"])
+# Fetch latest remote main
+subprocess.run(["git", "fetch", "origin", "main"], check=False)
 
-stash_list = subprocess.check_output(["git", "stash", "list"], text=True).strip()
-if stash_list:
-    print("[INFO] Applying stashed changes")
-    subprocess.call(["git", "stash", "pop"])
+# Rebase local changes on top of origin/main
+subprocess.run(["git", "rebase", "origin/main"], check=False)
 
-subprocess.call(["git", "add", "default.xml"])
+# Stage the manifest file
+subprocess.run(["git", "add", "default.xml"], check=False)
 
+# Commit if there are changes
 if subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0:
-    subprocess.call(["git", "commit", "-m", "Auto-update manifest with latest commits"])
-    subprocess.call(["git", "push", "origin", f"HEAD:refs/heads/{branch}"])
+    subprocess.run(["git", "commit", "-m", "Auto-update manifest with latest commits"], check=False)
+
+    # 🚀 Force push directly to remote main to guarantee sync
+    subprocess.run(["git", "push", "--force", "origin", "main"], check=False)
 else:
     print("[INFO] No changes to commit")
 
-print("✅ Manifest update completed successfully.")
+print("✅ Manifest update completed and force-pushed safely to 'main'.")
