@@ -11,7 +11,7 @@ MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
 REPOS = []  # Leave empty to auto-detect
 
 def is_git_repo(path):
-    """Check if a directory is a git repository."""
+    Check if a directory is a git repository.
     return os.path.isdir(os.path.join(path, ".git"))
 
 def get_latest_commit(repo_path):
