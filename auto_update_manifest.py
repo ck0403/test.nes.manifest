@@ -112,7 +112,7 @@ else:
 
 print("✅ Manifest update completed and force-pushed safely to 'main'.")
 
-"""
+
 import os
 import subprocess
 import shutil
@@ -231,7 +231,7 @@ if subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0:
     print("✅ Manifest updated and force-pushed to 'main'")
 else:
     print("[INFO] No changes to commit")
-
+"""
 import os
 import subprocess
 import shutil
@@ -312,39 +312,59 @@ tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True, pretty_print=T
 # === GIT OPERATIONS ===
 os.chdir(MANIFEST_REPO_DIR)
 
+# Helper for git commands
+def git_command(cmd):
+    return run(cmd, cwd=MANIFEST_REPO_DIR)
+
 # Cleanup incomplete rebase if any
 if os.path.exists(".git/rebase-merge") or os.path.exists(".git/rebase-apply"):
     print("[INFO] Aborting previous rebase")
-    subprocess.run(["git", "rebase", "--abort"], check=False)
+    git_command(["git", "rebase", "--abort"])
 
+# Step 1: Stash all local changes including untracked files
 print("[INFO] Stashing local changes before rebase...")
-stash_code, stash_out, stash_err = git_command([
-    "git", "stash", "push", "--all", "-m", "pre-rebase backup"
-])
+stash_code, stash_out, stash_err = git_command(["git", "stash", "push", "--all", "-m", "pre-rebase backup"])
 if stash_code == 0:
     print(f"[INFO] Stashed changes: {stash_out.strip()}")
 else:
     print(f"[WARN] Could not stash changes: {stash_err.strip()}")
 
-# Checkout main branch
-subprocess.run(["git", "checkout", BRANCH], check=True)
+# Step 2: Checkout main branch
+git_command(["git", "checkout", BRANCH])
 
-# Fetch latest remote
-subprocess.run(["git", "fetch", "origin", BRANCH], check=True)
+# Step 3: Fetch latest from origin
+git_command(["git", "fetch", "origin", BRANCH])
 
-# Rebase local main on top of origin/main
-code, out, err = git_command(["git", "rebase", f"origin/{BRANCH}"])
-if code != 0:
+# Step 4: Rebase local main on top of origin/main
+rebase_code, rebase_out, rebase_err = git_command(["git", "rebase", f"origin/{BRANCH}"])
+if rebase_code != 0:
     print("[ERROR] Rebase failed. Resolve conflicts manually and continue.")
-    print(err)
+    print(rebase_err)
     exit(1)
 else:
     print("[INFO] Rebase successful")
 
-# Pop stash if it exists
+# Step 5: Pop stashed changes
 stash_list_code, stash_list_out, _ = git_command(["git", "stash", "list"])
 if "pre-rebase backup" in stash_list_out:
     print("[INFO] Applying stashed changes...")
-    subprocess.run(["git", "stash", "pop"], check=False)
+    pop_code, pop_out, pop_err = git_command(["git", "stash", "pop"])
+    if pop_code == 0:
+        print(f"[INFO] Applied stash: {pop_out.strip()}")
+    else:
+        print(f"[WARN] Could not apply stash: {pop_err.strip()}")
 else:
     print("[INFO] No stashed changes to apply")
+
+# Step 6: Stage & commit changes if any
+git_command(["git", "add", "."])
+diff_code, _, _ = git_command(["git", "diff", "--cached", "--quiet"])
+if diff_code != 0:
+    git_command(["git", "commit", "-m", "Auto-update manifest with latest commits"])
+    print("[INFO] Changes committed.")
+else:
+    print("[INFO] No changes to commit")
+
+# Step 7: Push to origin
+git_command(["git", "push", "origin", BRANCH])
+print("[INFO] Push completed.")
