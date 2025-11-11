@@ -4,8 +4,8 @@ import shutil
 from lxml import etree  # Use lxml instead of xml.etree.ElementTree
 
 # === CONFIGURATION ===
-WORKSPACE_DIR = r"D:\Jenkings_Test\Repo_test"
-MANIFEST_REPO_DIR = r"D:\Jenkings_Test\Repo_test\test.nes.manifest"
+WORKSPACE_DIR = r"D:\AOSP3"
+MANIFEST_REPO_DIR = r"D:\AOSP3\test.nes.manifest"
 MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
 REPOS = []  # Leave empty to auto-detect
 

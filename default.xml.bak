@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <manifest>
 
-  <!-- Default settings -->
-  <remote  name="origin"
-           fetch="https://github.com/ck0403/" />
+  
+  <remote name="origin" fetch="https://github.com/ck0403/"/>
 
-  <default revision="main"
-           remote="origin"
-           sync-j="4" />
-
-  <!-- List of individual projects -->
-  <project name="test.nes.repo" path="test.nes.repo" revision="fcb4b4dc2ebc952e1edb485a714c57ac2c158ddc"/>
-  <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="b188ee550130dd182bf0d4fefd78aad5031c3214"/>
-  <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="ae3351d987d38e99d14328c85c97062bd9d23e5e"/>
-  <project name="test.nes.manifest" path="test.nes.manifest" revision="b4dda53878871e36dbe4dfdba08f18fa2d272aa3"/>
+  <default revision="main" remote="origin" sync-j="4"/>
+  
+  <project name="test.nes.repo" path="test.nes.repo" revision="58d00e0f2a91b441916f91dd39c69d2a9323c678"/>
+  <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="f3054f638d17e05b4bd792deca194d0ddb780920"/>
+  <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="82e3d96f95db0cbe0d0cf1f5b53d9cbfdb3cbfa9"/>
+  <project name="test.nes.manifest" path="test.nes.manifest" revision="adafb2313825aae21825f1e4fbb46a6a308dc691"/>
 
 </manifest>
