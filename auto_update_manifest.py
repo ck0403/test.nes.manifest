@@ -111,6 +111,7 @@ else:
     print("[INFO] No changes to commit")
 
 print("✅ Manifest update completed and force-pushed safely to 'main'.")
+
 """
 import os
 import subprocess
@@ -231,3 +232,120 @@ if subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0:
 else:
     print("[INFO] No changes to commit")
 
+import os
+import subprocess
+import shutil
+from lxml import etree
+
+# === CONFIGURATION ===
+WORKSPACE_DIR = r"D:\AOSP3"                  # Root directory where repos live
+MANIFEST_REPO_DIR = r"D:\AOSP3\test.nes.manifest"  # Manifest repo
+MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
+BRANCH = "main"
+
+# === HELPER FUNCTIONS ===
+def run(cmd, cwd=None, check=False):
+    #Run a shell command and return (returncode, stdout, stderr3
+    result = subprocess.run(cmd, cwd=cwd, text=True, capture_output=True)
+    if check and result.returncode != 0:
+        raise RuntimeError(f"Command failed: {' '.join(cmd)}\n{result.stderr}")
+    return result.returncode, result.stdout.strip(), result.stderr.strip()
+
+def is_git_repo(path):
+    return os.path.isdir(os.path.join(path, ".git"))
+
+def get_remote_commit(repo_path):
+    #Get latest commit SHA from remote main of the repo
+    if not is_git_repo(repo_path):
+        print(f"[SKIP] {repo_path} is not a Git repo.")
+        return None
+    # Fetch latest remote main
+    run(["git", "fetch", "origin", "main"], cwd=repo_path)
+    # Get commit SHA of origin/main
+    sha, _, _ = run(["git", "rev-parse", "origin/main"], cwd=repo_path)
+    return sha
+
+# === MAIN SCRIPT ===
+
+if not os.path.exists(MANIFEST_FILE):
+    print(f"[ERROR] Manifest file not found: {MANIFEST_FILE}")
+    exit(1)
+
+# Backup manifest
+backup_file = MANIFEST_FILE + ".bak"
+shutil.copy(MANIFEST_FILE, backup_file)
+print(f"[BACKUP] Old manifest saved to {backup_file}")
+
+# Parse XML
+parser = etree.XMLParser(recover=True)
+tree = etree.parse(MANIFEST_FILE, parser)
+root = tree.getroot()
+
+# Auto-detect repos in workspace
+REPOS = [
+    d for d in os.listdir(WORKSPACE_DIR)
+    if os.path.isdir(os.path.join(WORKSPACE_DIR, d))
+    and not d.startswith(".")
+    and d != ".repo"
+]
+
+# Update manifest revisions from **remote commits**
+for repo in REPOS:
+    repo_path = os.path.join(WORKSPACE_DIR, repo)
+    sha = get_remote_commit(repo_path)
+    if not sha:
+        continue
+
+    updated = False
+    for project in root.findall("project"):
+        if project.get("path") == repo:
+            project.set("revision", sha)
+            print(f"[UPDATED] {repo} → {sha}")
+            updated = True
+            break
+    if not updated:
+        print(f"[WARN] {repo} not found in manifest")
+
+# Write updated manifest
+tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True, pretty_print=True)
+
+# === GIT OPERATIONS ===
+os.chdir(MANIFEST_REPO_DIR)
+
+# Cleanup incomplete rebase if any
+if os.path.exists(".git/rebase-merge") or os.path.exists(".git/rebase-apply"):
+    print("[INFO] Aborting previous rebase")
+    subprocess.run(["git", "rebase", "--abort"], check=False)
+
+# Stash **all** changes, including untracked files and ignored ones
+print("[INFO] Stashing any local changes...")
+stash_code, stash_out, _ = git_command([
+    "git", "stash", "push", "--include-untracked", "--all", "-m", "pre-rebase backup"
+])
+if stash_code == 0 and "No local changes" not in stash_out:
+    print("[INFO] Changes stashed successfully")
+else:
+    print("[INFO] No changes to stash")
+
+# Checkout main branch
+subprocess.run(["git", "checkout", BRANCH], check=True)
+
+# Fetch remote
+subprocess.run(["git", "fetch", "origin", BRANCH], check=True)
+
+# Rebase local main on top of origin/main
+code, out, err = git_command(["git", "rebase", f"origin/{BRANCH}"])
+if code != 0:
+    print("[ERROR] Rebase failed. Resolve conflicts manually and continue.")
+    print(err)
+    exit(1)
+else:
+    print("[INFO] Rebase successful")
+
+# Pop stash if it exists
+stash_list_code, stash_list_out, _ = git_command(["git", "stash", "list"])
+if "pre-rebase backup" in stash_list_out:
+    print("[INFO] Applying stashed changes...")
+    subprocess.run(["git", "stash", "pop"], check=False)
+else:
+    print("[INFO] No stashed changes to apply")
