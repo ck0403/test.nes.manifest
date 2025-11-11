@@ -1,3 +1,4 @@
+"""
 import os
 import subprocess
 import shutil
@@ -110,3 +111,123 @@ else:
     print("[INFO] No changes to commit")
 
 print("✅ Manifest update completed and force-pushed safely to 'main'.")
+"""
+import os
+import subprocess
+import shutil
+from lxml import etree
+
+# === CONFIGURATION ===
+WORKSPACE_DIR = r"D:\AOSP3"                       # Root workspace containing all repos
+MANIFEST_REPO_DIR = r"D:\AOSP3\test.nes.manifest"  # Path to manifest repo
+MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
+BRANCH = "main"
+
+# === HELPER FUNCTIONS ===
+
+def is_git_repo(path):
+    return os.path.isdir(os.path.join(path, ".git"))
+
+def get_latest_commit_local(repo_path):
+    if not is_git_repo(repo_path):
+        return None
+    try:
+        sha = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=repo_path, text=True
+        ).strip()
+        return sha
+    except subprocess.CalledProcessError:
+        return None
+
+def get_latest_commit_remote(repo_url, branch="main"):
+    try:
+        sha = subprocess.check_output(
+            ["git", "ls-remote", repo_url, branch], text=True
+        ).split()[0]
+        return sha
+    except subprocess.CalledProcessError:
+        return None
+
+def git_command(cmd, cwd=None):
+    try:
+        result = subprocess.run(cmd, cwd=cwd, text=True, capture_output=True)
+        return result.returncode, result.stdout, result.stderr
+    except Exception as e:
+        return 1, "", str(e)
+
+# === BACKUP MANIFEST ===
+backup_file = MANIFEST_FILE + ".bak"
+shutil.copy(MANIFEST_FILE, backup_file)
+print(f"[BACKUP] Old manifest saved to {backup_file}")
+
+# === PARSE MANIFEST ===
+parser = etree.XMLParser(recover=True)
+tree = etree.parse(MANIFEST_FILE, parser)
+root = tree.getroot()
+
+# === DETECT ALL REPOS ===
+REPOS = []
+for root_dir, dirs, files in os.walk(WORKSPACE_DIR):
+    if ".git" in dirs:
+        rel_path = os.path.relpath(root_dir, WORKSPACE_DIR).replace("\\", "/")
+        REPOS.append(rel_path)
+
+# === UPDATE MANIFEST ===
+for project in root.findall("project"):
+    repo_path = os.path.join(WORKSPACE_DIR, project.get("path").replace("/", os.sep))
+    repo_url = project.get("name")
+    sha = None
+
+    if os.path.exists(repo_path) and is_git_repo(repo_path):
+        sha = get_latest_commit_local(repo_path)
+    else:
+        # Try remote if local repo missing
+        if repo_url:
+            sha = get_latest_commit_remote(f"https://github.com/ck0403/{repo_url}.git", BRANCH)
+
+    if sha:
+        old_sha = project.get("revision")
+        project.set("revision", sha)
+        print(f"[UPDATED] {project.get('path')}: {old_sha} → {sha}")
+    else:
+        print(f"[WARN] Cannot get commit for {project.get('path')}")
+
+# Write updated manifest
+tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True, pretty_print=True)
+
+# === GIT OPERATIONS ===
+os.chdir(MANIFEST_REPO_DIR)
+
+# Cleanup incomplete rebase if any
+if os.path.exists(".git/rebase-merge"):
+    print("[INFO] Aborting previous rebase")
+    subprocess.run(["git", "rebase", "--abort"], check=False)
+
+# Stash local changes
+subprocess.run(["git", "stash", "--include-untracked"], check=False)
+subprocess.run(["git", "checkout", BRANCH], check=False)
+subprocess.run(["git", "stash", "pop"], check=False)
+
+# Fetch latest remote
+subprocess.run(["git", "fetch", "origin", BRANCH], check=False)
+
+# Rebase local changes on top of origin/main
+code, out, err = git_command(["git", "rebase", f"origin/{BRANCH}"])
+if code != 0:
+    print("[ERROR] Rebase failed. Resolve conflicts manually and continue.")
+    print(err)
+    exit(1)
+else:
+    print("[INFO] Rebase successful")
+
+# Stage changes
+subprocess.run(["git", "add", "default.xml"], check=False)
+
+# Commit if there are changes
+if subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0:
+    subprocess.run(["git", "commit", "-m", "Auto-update manifest with latest commits"], check=False)
+    subprocess.run(["git", "push", "--force", "origin", BRANCH], check=False)
+    print("✅ Manifest updated and force-pushed to 'main'")
+else:
+    print("[INFO] No changes to commit")
+
