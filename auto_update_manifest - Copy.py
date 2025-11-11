@@ -81,13 +81,15 @@ import os
 import subprocess
 import xml.etree.ElementTree as ET
 import shutil
+import sys
 
 # === CONFIGURATION ===
-WORKSPACE_DIR = r"D:\Jenkings_Test\Repo_test"
-MANIFEST_REPO_DIR = r"D:\Jenkings_Test\Repo_test\test.nes.manifest"
+WORKSPACE_DIR = "D:/Jenkings_Test/Repo_test"  # Use forward slashes to avoid warnings
+MANIFEST_REPO_DIR = "D:/Jenkings_Test/Repo_test/test.nes.manifest"
 MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
 REPOS = []  # Leave empty to auto-detect
 
+# === UTILITY FUNCTIONS ===
 def is_git_repo(path):
     """Check if a directory is a git repository."""
     return os.path.isdir(os.path.join(path, ".git"))
@@ -98,17 +100,29 @@ def get_latest_commit(repo_path):
         print(f"[SKIP] {repo_path} is not a Git repo.")
         return None
     try:
-        sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo_path, text=True).strip()
+        sha = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=repo_path, text=True
+        ).strip()
         return sha
     except subprocess.CalledProcessError:
         print(f"[ERROR] Cannot get commit for {repo_path}")
         return None
+
+def run_cmd(cmd, cwd=None, check=False):
+    """Run a shell command and optionally fail if check=True."""
+    result = subprocess.run(cmd, cwd=cwd, text=True, capture_output=True)
+    if check and result.returncode != 0:
+        print(f"[ERROR] Command failed: {' '.join(cmd)}")
+        print(result.stderr)
+        sys.exit(1)
+    return result
 
 # === MAIN SCRIPT ===
 if not os.path.exists(MANIFEST_FILE):
     print(f"[ERROR] Manifest file not found: {MANIFEST_FILE}")
     exit(1)
 
+# Auto-detect repositories if REPOS is empty
 if not REPOS:
     REPOS = [
         d for d in os.listdir(WORKSPACE_DIR)
@@ -117,12 +131,12 @@ if not REPOS:
         and d != ".repo"
     ]
 
-# Backup manifest before modifying
+# Backup manifest
 backup_file = MANIFEST_FILE + ".bak"
 shutil.copy(MANIFEST_FILE, backup_file)
 print(f"[BACKUP] Old manifest saved to {backup_file}")
 
-# Parse manifest and update revisions
+# === Update manifest with latest commits ===
 tree = ET.parse(MANIFEST_FILE)
 root = tree.getroot()
 
@@ -142,21 +156,41 @@ for repo in REPOS:
 
 tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True)
 
-# Commit and push manifest safely
+# === Commit and push ===
 os.chdir(MANIFEST_REPO_DIR)
 
-# Pull latest remote changes first
-branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"], text=True).strip()
-subprocess.call(["git", "fetch", "origin"])
-subprocess.call(["git", "rebase", f"origin/{branch}"])
+# Determine current branch
+branch = run_cmd(["git", "rev-parse", "--abbrev-ref", "HEAD"], check=True).stdout.strip()
 
-# Stage and commit changes
-subprocess.call(["git", "add", "default.xml"])
-if subprocess.call(["git", "diff", "--cached", "--quiet"]) != 0:
-    subprocess.call(["git", "commit", "-m", "Auto-update manifest with latest commits"])
-    # Push after rebasing
-    subprocess.call(["git", "push", "origin", branch])
+# Fetch latest changes from remote
+run_cmd(["git", "fetch", "origin"], check=True)
+
+# Check for local changes
+local_changes = run_cmd(["git", "diff", "--quiet"]).returncode != 0 \
+                or run_cmd(["git", "diff", "--cached", "--quiet"]).returncode != 0
+
+if local_changes:
+    print("[INFO] Stashing local changes before rebase")
+    run_cmd(["git", "stash", "--include-untracked"], check=True)
+
+# Rebase onto remote
+run_cmd(["git", "rebase", f"origin/{branch}"], check=True)
+
+# Apply stashed changes if any
+stash_list = run_cmd(["git", "stash", "list"]).stdout.strip()
+if stash_list:
+    print("[INFO] Applying stashed changes")
+    run_cmd(["git", "stash", "pop"], check=True)
+
+# Stage manifest changes
+run_cmd(["git", "add", "default.xml"], check=True)
+
+# Commit if there are changes
+if run_cmd(["git", "diff", "--cached", "--quiet"]).returncode != 0:
+    run_cmd(["git", "commit", "-m", "Auto-update manifest with latest commits"], check=True)
+    run_cmd(["git", "push", "origin", branch], check=True)
 else:
     print("[INFO] No changes to commit")
 
 print("✅ Manifest update completed successfully.")
+
