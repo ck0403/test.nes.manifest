@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <manifest>
 
-  <!-- Default settings -->
-  <remote  name="origin"
-           fetch="https://github.com/ck0403/" />
+  
+  <remote name="origin" fetch="https://github.com/ck0403/" />
 
-  <default revision="main"
-           remote="origin"
-           sync-j="4" />
+  <default revision="main" remote="origin" sync-j="4" />
 
-  <!-- List of individual projects -->
-  <project name="test.aosp.main" path="test.aosp.main" />
-  <project name="test.aosp.subrepo" path="test.aosp.subrepo" />
-  <project name="test.nes.nested.nested" path="test.nes.nested.nested" />
+  
+  <project name="test.aosp.main" path="test.aosp.main" revision="fcb4b4dc2ebc952e1edb485a714c57ac2c158ddc" />
+  <project name="test.aosp.subrepo" path="test.aosp.subrepo" revision="b188ee550130dd182bf0d4fefd78aad5031c3214" />
+  <project name="test.nes.nested.nested" path="test.nes.nested.nested" revision="ae3351d987d38e99d14328c85c97062bd9d23e5e" />
+  <project name="test.nes.manifest" path="test.nes.manifest" revision="ae3351d987d38e99d14328c85c97062bd9d23e5e" />
 
 </manifest>
