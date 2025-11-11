@@ -11,7 +11,7 @@
   <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main"/>
   <project name="test.aosp.submodule.main" path="test.aosp.submodule.main"/>
   <project name="test.nes.repo" path="test.nes.repo"/>
-  <project name="test.nes.manifest" path="test.nes.manifest" revision="542e71fff01ecee90189bab1b3ebeeeb51331457"/>
+  <project name="test.nes.manifest" path="test.nes.manifest" revision="bd4813703bbca127e639c0ccfc702621ceae2f72"/>
 =======
   <project name="test.aosp.main" path="test.aosp.main" revision="fcb4b4dc2ebc952e1edb485a714c57ac2c158ddc"/>
   <project name="test.aosp.subrepo" path="test.aosp.subrepo" revision="b188ee550130dd182bf0d4fefd78aad5031c3214"/>
