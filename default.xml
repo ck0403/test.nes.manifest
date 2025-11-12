@@ -7,10 +7,10 @@
     <default revision="main" remote="origin" sync-j="4"/>
 
     <!-- Top-level projects -->
-    <project name="test.nes.repo" path="test.nes.repo" revision="969be52a37bf37f072ba36cd265fef8a7fd1390e"/>
-    <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="969be52a37bf37f072ba36cd265fef8a7fd1390e"/>
-    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="969be52a37bf37f072ba36cd265fef8a7fd1390e"/>
-    <project name="test.nes.manifest" path="test.nes.manifest" revision="969be52a37bf37f072ba36cd265fef8a7fd1390e"/>
+    <project name="test.nes.repo" path="test.nes.repo" revision="58d00e0f2a91b441916f91dd39c69d2a9323c678"/>
+    <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="f3054f638d17e05b4bd792deca194d0ddb780920"/>
+    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="82e3d96f95db0cbe0d0cf1f5b53d9cbfdb3cbfa9"/>
+    <project name="test.nes.manifest" path="test.nes.manifest" revision="d4c62125b5c4e66d11c7d74afd1ddf6fb361d63e"/>
 
     <!-- Nested sub-repo inside test.nes.manifest -->
     <project name="test.nes.manifest.sub" path="test.nes.manifest/test.nes.manifest.sub" revision="cfbd40b3fdfadc1a0d91cc602222b09d90336ec3">
