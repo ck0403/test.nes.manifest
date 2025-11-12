@@ -238,8 +238,8 @@ import shutil
 from lxml import etree
 
 # === CONFIGURATION ===
-WORKSPACE_DIR = r"D:\AOSP3"                  # Root directory where repos live
-MANIFEST_REPO_DIR = r"D:\AOSP3\test.nes.manifest"  # Manifest repo
+WORKSPACE_DIR = r"D:\AOSP2"                  # Root directory where repos live
+MANIFEST_REPO_DIR = r"D:\AOSP2\test.nes.manifest"  # Manifest repo
 MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
 BRANCH = "main"
 
