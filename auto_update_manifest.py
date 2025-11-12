@@ -420,12 +420,17 @@ tree = etree.parse(MANIFEST_FILE, parser)
 root = tree.getroot()
 
 # Auto-detect repos in workspace
-REPOS = [
-    d for d in os.listdir(WORKSPACE_DIR)
-    if os.path.isdir(os.path.join(WORKSPACE_DIR, d))
-    and not d.startswith(".")
-    and d != ".repo"
-]
+REPOS = []
+
+for root_dir, dirs, files in os.walk(WORKSPACE_DIR):
+    # Skip .repo folder entirely
+    if ".repo" in dirs:
+        dirs.remove(".repo")
+    
+    # If this folder contains a .git directory, it's a repo
+    if ".git" in dirs:
+        rel_path = os.path.relpath(root_dir, WORKSPACE_DIR).replace("\\", "/")
+        REPOS.append(rel_path)
 
 # Update manifest revisions from **remote commits**
 for repo in REPOS:
