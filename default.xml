@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <manifest>
-    <!-- Remote definition -->
-    <remote name="origin" fetch="https://github.com/ck0403/"/>
+    
+    <remote name="origin" fetch="https://github.com/ck0403/" />
 
-    <!-- Default branch and remote for all projects -->
-    <default revision="main" remote="origin" sync-j="4"/>
+    
+    <default revision="main" remote="origin" sync-j="4" />
 
-    <!-- Top-level projects -->
-    <project name="test.nes.repo" path="test.nes.repo" revision="58d00e0f2a91b441916f91dd39c69d2a9323c678"/>
-    <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="f3054f638d17e05b4bd792deca194d0ddb780920"/>
-    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="82e3d96f95db0cbe0d0cf1f5b53d9cbfdb3cbfa9"/>
+    
+    <project name="test.nes.repo" path="test.nes.repo" revision="58d00e0f2a91b441916f91dd39c69d2a9323c678" />
+    <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="f3054f638d17e05b4bd792deca194d0ddb780920" />
+    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="82e3d96f95db0cbe0d0cf1f5b53d9cbfdb3cbfa9" />
 
-    <!-- Nested sub-repo inside test.nes.manifest -->
-	<!-- In test.nes.repo -->
-	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="70e1b4f42413aed91cfccaf233edff854ae9f22e"/>
-
-	<!-- In test.aosp.subrepo.main -->
-	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="70e1b4f42413aed91cfccaf233edff854ae9f22e"/>
+    
 	
-	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="57351188b95869eb877ded7a2fcceda7846a497f"/>
+	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="70e1b4f42413aed91cfccaf233edff854ae9f22e" />
+
+	
+	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="70e1b4f42413aed91cfccaf233edff854ae9f22e" />
+	
+	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="57351188b95869eb877ded7a2fcceda7846a497f" />
 
 
 	
