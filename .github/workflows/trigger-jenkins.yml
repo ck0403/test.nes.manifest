@@ -1,0 +1,48 @@
+name: Update default.xml with Commit Hashes
+
+on:
+  push:
+    branches: [ main, develop ]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  update-default-xml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+          
+      - name: Setup Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+      - name: Get latest commit info
+        id: commit-info
+        run: |
+          echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          echo "COMMIT_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "COMMIT_DATE=$(git log -1 --format=%cd --date=iso)" >> $GITHUB_OUTPUT
+          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B | head -n1 | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
+          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          
+      - name: Update default.xml with commit info
+        run: |
+          python .github/scripts/update-default-xml.py \
+            --commit "${{ steps.commit-info.outputs.COMMIT_HASH }}" \
+            --branch "${{ steps.commit-info.outputs.BRANCH_NAME }}" \
+            --message "${{ steps.commit-info.outputs.COMMIT_MESSAGE }}" \
+            --date "${{ steps.commit-info.outputs.COMMIT_DATE }}"
+            
+      - name: Commit and push changes
+        run: |
+          if git diff --quiet default.xml; then
+            echo "No changes to default.xml"
+          else
+            git add default.xml
+            git commit -m "chore: update default.xml with commit ${{ steps.commit-info.outputs.COMMIT_SHORT }}"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "✅ default.xml updated and pushed"
+          fi
