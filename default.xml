@@ -7,9 +7,9 @@
     <default revision="main" remote="origin" sync-j="4" />
 
     
-    <project name="test.nes.repo" path="test.nes.repo" revision="58d00e0f2a91b441916f91dd39c69d2a9323c678" />
+    <project name="test.nes.repo" path="test.nes.repo" revision="6afd5f814cb5a219f39086edf1b12e46b708bad6" />
     <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="ffc9391294916d3b978f08fd2bed66c3429044b0" />
-    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="4d6e2f7a76a21cf897b19aefc8f80c9c35b1acdb" />
+    <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="2cb4253c376fd09fb6c1a5735aed46b6efc5c3a4" />
 
     
 	
