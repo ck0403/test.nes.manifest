@@ -1,6 +1,6 @@
 name: Update Commits in default.xml
 
-on:
+on
   push:
     branches: [ main, master, develop ]
   workflow_dispatch:
