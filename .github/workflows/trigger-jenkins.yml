@@ -30,7 +30,7 @@ jobs:
           
       - name: Update default.xml with commit info
         run: |
-          python .github/scripts/update-default-xml.py \
+          python .github/scripts/auto_update_manifest.py \
             --commit "${{ steps.commit-info.outputs.COMMIT_HASH }}" \
             --branch "${{ steps.commit-info.outputs.BRANCH_NAME }}" \
             --message "${{ steps.commit-info.outputs.COMMIT_MESSAGE }}" \
