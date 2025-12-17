@@ -13,10 +13,10 @@
 
     
 	
-	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="e4302b401eebc4066aa9ee0b764dab73c8f2e60b" />
+	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="b7c6f6f67476a1bac6ab0a82d422b3ac3723199f" />
 
 	
-	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="e4302b401eebc4066aa9ee0b764dab73c8f2e60b" />
+	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="b7c6f6f67476a1bac6ab0a82d422b3ac3723199f" />
 	
 	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="fe742a68db2eecf86027cfeec2fddae469b3ee6d" />
 
