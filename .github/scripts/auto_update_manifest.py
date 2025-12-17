@@ -1,94 +1,91 @@
-import os
-import subprocess
 import xml.etree.ElementTree as ET
+import argparse
+import datetime
+import sys
+import os
+from pathlib import Path
 
-# === CONFIGURATION ===
-WORKSPACE_DIR = r"E:\AOSp"       # Root of your Repo workspace
-MANIFEST_REPO_DIR = r"E:\Jenkins\test.nes.manifest"       # Path to your manifest repo
-MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
-REPOS = []  # Leave empty to auto-detect, or list specific repo paths relative to workspace
-
-# === HELPER FUNCTIONS ===
-def get_projects_from_manifest(MANIFEST_REPO_DIR):
-    """Parse the manifest XML and return a list of project paths."""
-    projects = []
+def update_default_xml(commit_hash, branch, message, date):
+    """Update default.xml with commit information"""
+    
+    xml_file = Path("default.xml")
+    
+    # Create default.xml if it doesn't exist
+    if not xml_file.exists():
+        print(f"📄 Creating {xml_file} as it doesn't exist...")
+        root = ET.Element("project")
+        tree = ET.ElementTree(root)
+        
+        # Add basic structure
+        name_elem = ET.SubElement(root, "name")
+        name_elem.text = "Project Manifest"
+        
+        commit_info = ET.SubElement(root, "commit-info")
+        history = ET.SubElement(root, "commit-history")
+        
+        tree.write(xml_file, encoding='utf-8', xml_declaration=True)
+    
     try:
-        tree = ET.parse(MANIFEST_FILE)
+        # Parse XML
+        tree = ET.parse(xml_file)
         root = tree.getroot()
-        for project in root.findall("project"):
-            project_path = project.attrib.get("path")
-            if project_path:
-                # Build the full absolute path
-                full_path = project_path.replace('/', '\\')
-                projects.append(full_path)
-    except ET.ParseError as e:
-        print(f"Error parsing manifest XML: {e}")
-    return projects
-
-# Use the manifest to get the list of projects to update
-REPOS = get_projects_from_manifest(MANIFEST_FILE)
-
-def get_latest_commit(repo_path, branch="main", remote="origin"):
-    """Get latest commit SHA from the remote server branch."""
-    try:
-        # Fetch latest from remote (without merging)
-        subprocess.run(
-            ["git", "fetch", remote, branch],
-            cwd=repo_path,
-            capture_output=True,
-            check=True
-        )
         
-        # Get the remote branch commit
-        sha = subprocess.check_output(
-            ["git", "rev-parse", f"{remote}/{branch}"],
-            cwd=repo_path
-        ).decode().strip()
+        # Update commit-info element
+        commit_info = root.find('commit-info')
+        if commit_info is None:
+            commit_info = ET.SubElement(root, 'commit-info')
         
-        print(f"✓ Remote commit for {os.path.basename(repo_path)}: {sha[:8]}")
-        return sha
+        commit_info.set('hash', commit_hash)
+        commit_info.set('branch', branch)
+        commit_info.set('date', date)
+        commit_info.set('message', message[:100])  # Truncate long messages
+        commit_info.set('updated', datetime.datetime.now().isoformat())
         
-    except subprocess.CalledProcessError:
-        # Fallback to local commit if remote fetch fails
-        print(f"⚠️  Using local commit for {os.path.basename(repo_path)} (remote fetch failed)")
-        try:
-            sha = subprocess.check_output(
-                ["git", "rev-parse", "HEAD"],
-                cwd=repo_path
-            ).decode().strip()
-            return sha
-        except:
-            print(f"❌ Cannot get any commit for {repo_path}")
-            return None
+        # Add to commit history
+        history = root.find('commit-history')
+        if history is None:
+            history = ET.SubElement(root, 'commit-history')
+        
+        # Create new commit entry
+        commit_entry = ET.SubElement(history, 'commit')
+        commit_entry.set('hash', commit_hash)
+        commit_entry.set('branch', branch)
+        commit_entry.set('date', date)
+        commit_entry.set('message', message[:100])
+        
+        # Keep only last 20 commits in history
+        all_commits = history.findall('commit')
+        if len(all_commits) > 20:
+            for old_commit in all_commits[:-20]:
+                history.remove(old_commit)
+        
+        # Write back to file
+        tree.write(xml_file, encoding='utf-8', xml_declaration=True)
+        
+        print(f"✅ Updated {xml_file} with commit {commit_hash[:8]}")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error updating {xml_file}: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
-def update_manifest(repo_path, sha):
-    """Update the revision attribute of the project in the manifest XML."""
-    tree = ET.parse(MANIFEST_FILE)
-    root = tree.getroot()
+def main():
+    parser = argparse.ArgumentParser(description='Update default.xml with commit info')
+    parser.add_argument('--commit', required=True, help='Commit hash')
+    parser.add_argument('--branch', required=True, help='Branch name')
+    parser.add_argument('--message', required=True, help='Commit message')
+    parser.add_argument('--date', required=True, help='Commit date')
+    
+    args = parser.parse_args()
+    
+    update_default_xml(
+        commit_hash=args.commit,
+        branch=args.branch,
+        message=args.message,
+        date=args.date
+    )
 
-    updated = False
-    for project in root.findall("project"):
-        path = project.attrib.get("path")
-        path = path.replace('/', '\\')
-        if path == repo_path:
-            print("updating")
-            project.set("revision", sha)
-            updated = True
-            print(f"Updated {path} to {sha}")
-
-    if updated:
-        tree.write(MANIFEST_FILE, encoding="utf-8", xml_declaration=True)
-
-# === MAIN SCRIPT ===
-for repo in REPOS:
-    repo_path = repo
-    sha = get_latest_commit(repo_path)
-    if sha:
-        update_manifest(repo_path, sha)
-
-# Commit and push manifest
-os.chdir(MANIFEST_REPO_DIR)
-subprocess.call(["git", "add", "default.xml"])
-subprocess.call(["git", "commit", "-m", "Auto-update manifest with latest commits"])
-subprocess.call(["git", "push", "origin", "main"])
-print("Manifest update completed.")
+if __name__ == '__main__':
+    main()
