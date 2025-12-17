@@ -1,35 +1,43 @@
-name: Update default.xml with Commit Hashes
+name: Update Commits in default.xml
 
 on:
   push:
-    branches: [ main, develop ]
-  workflow_dispatch:  # Manual trigger
+    branches: [ main, master, develop ]
+  workflow_dispatch:
 
 jobs:
-  update-default-xml:
+  update-commits:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Still needed for the workflow
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for tags
+          fetch-depth: 0
+          # Use PAT instead of default GITHUB_TOKEN
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
-      - name: Setup Git identity
+      - name: Setup Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-      - name: Get latest commit info
+      - name: Get commit information
         id: commit-info
         run: |
-          echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-          echo "COMMIT_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-          echo "COMMIT_DATE=$(git log -1 --format=%cd --date=iso)" >> $GITHUB_OUTPUT
-          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B | head -n1 | sed 's/"/\\"/g')" >> $GITHUB_OUTPUT
-          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          echo "COMMIT_HASH=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+          echo "COMMIT_DATE=$(git log -1 --format='%cd' --date=iso-strict)" >> $GITHUB_OUTPUT
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          # Escape for JSON
+          COMMIT_MSG_ESCAPED=$(echo "$COMMIT_MSG" | python3 -c "import sys, json; print(json.dumps(sys.stdin.read()))")
+          echo "COMMIT_MESSAGE=$COMMIT_MSG_ESCAPED" >> $GITHUB_OUTPUT
           
-      - name: Update default.xml with commit info
+      - name: Update default.xml
         run: |
+          echo "Updating default.xml with commit ${{ steps.commit-info.outputs.COMMIT_HASH }}"
           python .github/scripts/auto_update_manifest.py \
             --commit "${{ steps.commit-info.outputs.COMMIT_HASH }}" \
             --branch "${{ steps.commit-info.outputs.BRANCH_NAME }}" \
@@ -42,7 +50,7 @@ jobs:
             echo "No changes to default.xml"
           else
             git add default.xml
-            git commit -m "chore: update default.xml with commit ${{ steps.commit-info.outputs.COMMIT_SHORT }}"
-            git push origin HEAD:${{ github.ref_name }}
-            echo "✅ default.xml updated and pushed"
+            git commit -m "chore: update default.xml with commit ${{ steps.commit-info.outputs.COMMIT_HASH }}"
+            git push
+            echo "✅ Successfully updated default.xml"
           fi
