@@ -18,7 +18,7 @@
 	
 	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="e4302b401eebc4066aa9ee0b764dab73c8f2e60b" />
 	
-	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="57351188b95869eb877ded7a2fcceda7846a497f" />
+	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="fe742a68db2eecf86027cfeec2fddae469b3ee6d" />
 
 
 	
