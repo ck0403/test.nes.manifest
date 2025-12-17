@@ -1,9 +1,15 @@
+#!/usr/bin/env python3
+"""
+Script to update commit information in default.xml
+"""
+
 import xml.etree.ElementTree as ET
 import argparse
 import datetime
 import sys
 import os
 from pathlib import Path
+import shlex
 
 def update_default_xml(commit_hash, branch, message, date):
     """Update default.xml with commit information"""
@@ -38,7 +44,11 @@ def update_default_xml(commit_hash, branch, message, date):
         commit_info.set('hash', commit_hash)
         commit_info.set('branch', branch)
         commit_info.set('date', date)
-        commit_info.set('message', message[:100])  # Truncate long messages
+        # Clean up message - remove quotes and escape XML special chars
+        clean_message = message.replace('"', '').replace("'", "")
+        if len(clean_message) > 100:
+            clean_message = clean_message[:97] + "..."
+        commit_info.set('message', clean_message)
         commit_info.set('updated', datetime.datetime.now().isoformat())
         
         # Add to commit history
@@ -51,7 +61,7 @@ def update_default_xml(commit_hash, branch, message, date):
         commit_entry.set('hash', commit_hash)
         commit_entry.set('branch', branch)
         commit_entry.set('date', date)
-        commit_entry.set('message', message[:100])
+        commit_entry.set('message', clean_message)
         
         # Keep only last 20 commits in history
         all_commits = history.findall('commit')
@@ -72,13 +82,47 @@ def update_default_xml(commit_hash, branch, message, date):
         sys.exit(1)
 
 def main():
-    parser = argparse.ArgumentParser(description='Update default.xml with commit info')
+    parser = argparse.ArgumentParser(
+        description='Update default.xml with commit info',
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument('--commit', required=True, help='Commit hash')
     parser.add_argument('--branch', required=True, help='Branch name')
     parser.add_argument('--message', required=True, help='Commit message')
     parser.add_argument('--date', required=True, help='Commit date')
     
-    args = parser.parse_args()
+    # Try to parse arguments, handle errors gracefully
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        # If parsing fails, show what we received
+        print("Debug: Received arguments:", sys.argv)
+        # Try a simpler approach
+        if len(sys.argv) > 1:
+            # Extract values manually
+            commit = branch = message = date = ""
+            i = 1
+            while i < len(sys.argv):
+                if sys.argv[i] == '--commit' and i + 1 < len(sys.argv):
+                    commit = sys.argv[i + 1]
+                    i += 2
+                elif sys.argv[i] == '--branch' and i + 1 < len(sys.argv):
+                    branch = sys.argv[i + 1]
+                    i += 2
+                elif sys.argv[i] == '--message' and i + 1 < len(sys.argv):
+                    message = sys.argv[i + 1]
+                    i += 2
+                elif sys.argv[i] == '--date' and i + 1 < len(sys.argv):
+                    date = sys.argv[i + 1]
+                    i += 2
+                else:
+                    i += 1
+            
+            if commit and branch and message and date:
+                update_default_xml(commit, branch, message, date)
+                return
+        print("❌ Could not parse arguments")
+        sys.exit(1)
     
     update_default_xml(
         commit_hash=args.commit,
