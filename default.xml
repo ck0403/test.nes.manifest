@@ -10,7 +10,7 @@
     <project name="test.nes.repo" path="test.nes.repo" revision="6afd5f814cb5a219f39086edf1b12e46b708bad6"/>
     <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="ffc9391294916d3b978f08fd2bed66c3429044b0"/>
     <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="83163d9bbf73d225c2f73669a7d12a16e3156002"/>
-	<project name="test.nes.manifest" path="test.nes.manifest" revision="3b1c5dcb758c2bb4c961bc4575526b1945a444ec"/>
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="d29edfb5cfbaa8be2c07a066650e1dff9da7327e"/>
 
     
 	
