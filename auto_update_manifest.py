@@ -5,8 +5,10 @@ from lxml import etree
 import sys
 
 # === CONFIGURATION ===
-WORKSPACE_DIR = r"E:/AOSP2"                  # Root directory where repos live
-MANIFEST_REPO_DIR = r"E:/AOSP2/test.nes.manifest"  # Manifest repo
+WORKSPACE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))                # Root directory where repos live
+print(WORKSPACE_DIR)
+MANIFEST_REPO_DIR = os.path.join(os.getcwd()) # Manifest repo
+print(MANIFEST_REPO_DIR)
 MANIFEST_FILE = os.path.join(MANIFEST_REPO_DIR, "default.xml")
 BRANCH = "main"
 
