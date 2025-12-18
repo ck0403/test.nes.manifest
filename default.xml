@@ -10,18 +10,18 @@
     <project name="test.nes.repo" path="test.nes.repo" revision="6afd5f814cb5a219f39086edf1b12e46b708bad6"/>
     <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="ffc9391294916d3b978f08fd2bed66c3429044b0"/>
     <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="83163d9bbf73d225c2f73669a7d12a16e3156002"/>
-<<<<<<< Updated upstream
-	<project name="test.nes.manifest" path="test.nes.manifest" revision="56df55eb7248bed9ce5b20c32dc881e0146c34eb"/>
+ Updated upstream
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="1e0c49c8adc734e92313f2733ab18233b6cfbe45"/>
 =======
 	<project name="test.nes.manifest" path="test.nes.manifest" revision="d005e612f11fa57a87ad4b87fd9a919addf05de7"/>
->>>>>>> Stashed changes
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes
 
     
 	
-	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="63195123f44b4179b4cf7aaf96072c1493ab5e67"/>
+	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
 
 	
-	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="63195123f44b4179b4cf7aaf96072c1493ab5e67"/>
+	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
 	
 	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="fe742a68db2eecf86027cfeec2fddae469b3ee6d"/>
 
