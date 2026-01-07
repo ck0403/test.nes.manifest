@@ -10,7 +10,11 @@
     <project name="sm6115_android14.0_ba02_r004_2w" path="sm6115_android14.0_ba02_r004_2w"/>
     <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="ffc9391294916d3b978f08fd2bed66c3429044b0"/>
     <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="83163d9bbf73d225c2f73669a7d12a16e3156002"/>
+<<<<<<< Updated upstream
 	<project name="test.nes.manifest" path="test.nes.manifest" revision="3fe35a04e3a2a9cb761be9071f65c490c2cd49a2"/>
+=======
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="c7fb560155c4be820870b717df6f036971da3306"/>
+>>>>>>> Stashed changes
 
     
 	
