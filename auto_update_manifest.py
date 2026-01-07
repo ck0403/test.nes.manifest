@@ -136,7 +136,7 @@ else:
 
 # Stage only changed manifest
 git_command(["git", "add", MANIFEST_FILE])
-
+git_command(["git", "add", backup_file])
 # Show staged files
 _, staged_files_out, _ = git_command(["git", "diff", "--cached", "--name-only"])
 staged_files = staged_files_out.splitlines()
