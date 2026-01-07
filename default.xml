@@ -7,7 +7,7 @@
     <default revision="main" remote="origin" sync-j="4"/>
 
     
-    <project name="test.nes.repo" path="test.nes.repo" revision="6afd5f814cb5a219f39086edf1b12e46b708bad6"/>
+    <project name="sm6115_android14.0_ba02_r004_2w" path="sm6115_android14.0_ba02_r004_2w"/>
     <project name="test.aosp.subrepo.main" path="test.aosp.subrepo.main" revision="ffc9391294916d3b978f08fd2bed66c3429044b0"/>
     <project name="test.aosp.submodule.main" path="test.aosp.submodule.main" revision="83163d9bbf73d225c2f73669a7d12a16e3156002"/>
 	<project name="test.nes.manifest" path="test.nes.manifest" revision="3fe35a04e3a2a9cb761be9071f65c490c2cd49a2"/>
@@ -15,9 +15,7 @@
     
 	
 	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
-
 	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
-	
 	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="fe742a68db2eecf86027cfeec2fddae469b3ee6d"/>
 
 
