@@ -19,6 +19,20 @@
 	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external" revision="2390f01aef0076921ceffc0ebf7cfab86fb0bdf8"/>
 	
 	<project name="llvm" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/llvm" revision="bd4ac51d47fde82256a65011d6cae58d63c5c1c0"/>
+	<project name="exoplayer" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/exoplayer"/>
+	<project name="rust" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/rust"/>
+	<project name="angle" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/angle"/>
+	<project name="cldr" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cldr"/>
+	<project name="icu" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/icu"/>
+	<project name="tensorflow" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/tensorflow"/>
+	<project name="vixl" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/vixl"/>
+	<project name="jackson-databind" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/jackson-databind"/>
+	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python"/>
+	<project name="chromium-webview" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/chromium-webview"/>
+	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python"/>
+	<project name="libabigail" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/libabigail"/>
+	<project name="cronet" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cronet"/>
+	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader"/>	
 	
 	
 	
