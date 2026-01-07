@@ -29,7 +29,6 @@
 	<project name="jackson-databind" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/jackson-databind"/>
 	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python"/>
 	<project name="chromium-webview" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/chromium-webview"/>
-	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python"/>
 	<project name="libabigail" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/libabigail"/>
 	<project name="cronet" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cronet"/>
 	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader"/>	
