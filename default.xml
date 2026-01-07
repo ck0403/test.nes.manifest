@@ -18,7 +18,6 @@
 	
 	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external"/>
 	
-	<project name="clang" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/clang"/>
 	
 	
 
