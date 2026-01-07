@@ -12,9 +12,9 @@
 
     
 	
-	<project name="test.nes.manifest.sub" path="test.nes.repo/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
-	<project name="test.nes.manifest.sub" path="test.aosp.subrepo.main/test.nes.manifest.sub" revision="48994dfe08e7a5f795fc1256a64221b7c1ea13eb"/>
-	<project name="test.aosp.subone" path="test.aosp.subrepo.main/test.aosp.subone" revision="fe742a68db2eecf86027cfeec2fddae469b3ee6d"/>
+	<project name="qssi14" path="sm6115_android14.0_ba02_r004_2w/qssi14"/>
+	<project name="target" path="sm6115_android14.0_ba02_r004_2w/target"/>
+	<project name="Unpacking_Tool" path="sm6115_android14.0_ba02_r004_2w/Unpacking_Tool"/>
 
 
 	
