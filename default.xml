@@ -53,9 +53,26 @@
 	<project name="clang" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/clang" revision="dfe60d635bc3ac51106ddcfb9e8761f1f75a5652"/>
 	
 	
-	<project name="cts" path="sm6115_android14.0_ba02_r004_2w/qssi14/target/cts"/>
-	<project name="frameworks_target" path="sm6115_android14.0_ba02_r004_2w/target/frameworks"/>
-	<project name="prebuilts_target" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts"/>
+	<project name="target.cts" path="sm6115_android14.0_ba02_r004_2w/target/cts"/>
+	<project name="target.frameworks" path="sm6115_android14.0_ba02_r004_2w/target/frameworks"/>
+	<project name="target.prebuilts" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts"/>
+	
+	
+	<project name="target.maven_repo" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/maven_repo"/>
+	<project name="target.ndk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/ndk"/>
+	<project name="target.gcc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/gcc"/>
+	<project name="target.rust" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/rust"/>
+	<project name="target.tools" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/tools"/>
+	<project name="target.vndk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/vndk"/>
+	<project name="target.android-emulator" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/android-emulator"/>
+	<project name="target.sdk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/sdk"/>
+	<project name="target.jdk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/jdk"/>
+	<project name="target.remoteexecution-client" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/remoteexecution-client"/>
+	<project name="target.misc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/misc"/>
+	<project name="target.abi-dumps" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/abi-dumps"/>
+	<project name="target.gradle-plugin" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/gradle-plugin"/>
+	<project name="target.clang" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/clang"/>
+
 	
 	
 		
