@@ -62,7 +62,7 @@
 	<project name="target.ndk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/ndk" revision="5ae9a8c177b9da0a4101fb03e5802e6392b3280b"/>
 	<project name="target.gcc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/gcc" revision="0b711d900b6fdfd8e060a3e2368e71577df00ee3"/>
 	<project name="target.rust" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/rust" revision="81ae217f904d16637991cd45b5784ba410676fbe"/>
-	<project name="target.tools" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/tools" revision="61a129d98446233b75fdff4b59e9a333e43e747e"/>
+	<project name="target.prebuilt.tools" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/tools" revision="61a129d98446233b75fdff4b59e9a333e43e747e"/>
 	<project name="target.vndk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/vndk" revision="f4cbfa6a782562320ec288efbff47c321cf6e764"/>
 	<project name="target.android-emulator" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/android-emulator" revision="d309638b5b7fd4c615f6a6b43e7516089821efbd"/>
 	<project name="target.sdk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/sdk" revision="7920dc8d05b404eddec10a7a314a092d1e1f44c1"/>
