@@ -8,7 +8,7 @@
 
     
     <project name="sm6115_android14.0_ba02_r004_2w" path="sm6115_android14.0_ba02_r004_2w" revision="1cbf894f0c95789ea1a6c90c8d4d7074e2d1f233"/>
-	<project name="test.nes.manifest" path="test.nes.manifest" revision="1ca6bda77b849a13c5f8593343dd9fed76ddc08c"/>
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="51a98aaada7e385eeeaf7bc3a32933437db0aa43"/>
 
     
 	
@@ -32,7 +32,24 @@
 	<project name="chromium-webview" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/chromium-webview" revision="d1969fa2d9f808fb8a690af6f67ece22556bf751"/>
 	<project name="libabigail" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/libabigail" revision="a2af8933efc10ea78ebfcf1776821dd109bab110"/>
 	<project name="cronet" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cronet" revision="4f8dab83c0f587acdffd440723a35cd84384e0d3"/>
-	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader" revision="423684f309b6922b9d7d71792a4cd7e72f577d40"/>	
+	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader" revision="423684f309b6922b9d7d71792a4cd7e72f577d40"/>
+	
+	<project name="go" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/go"/>
+	<project name="gcc" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/gcc"/>
+	<project name="build-tools" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/build-tools"/>
+	<project name="runtime" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/runtime"/>
+	<project name="android-emulator" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/android-emulator"/>
+	<project name="module_sdk" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/module_sdk"/>
+	<project name="vndk" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/vndk"/>
+	<project name="misc" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/misc"/>
+	<project name="remoteexecution-client" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/remoteexecution-client"/>
+	<project name="jdk" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/jdk"/>
+	<project name="sdk" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/sdk"/>
+	<project name="abi-dumps" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/abi-dumps"/>
+	<project name="clang" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts/clang"/>
+	
+	
+		
 	
 	
 	

@@ -8,7 +8,7 @@
 
     
     <project name="sm6115_android14.0_ba02_r004_2w" path="sm6115_android14.0_ba02_r004_2w" revision="1cbf894f0c95789ea1a6c90c8d4d7074e2d1f233"/>
-	<project name="test.nes.manifest" path="test.nes.manifest" revision="51a98aaada7e385eeeaf7bc3a32933437db0aa43"/>
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="05d36ae3835147fb5c1e796733f70589e9ac6944"/>
 
     
 	
@@ -17,7 +17,7 @@
 	<project name="Unpacking_Tool" path="sm6115_android14.0_ba02_r004_2w/Unpacking_Tool" revision="eda0f2eff7682f7066524eebf02c8d192a9d7e9b"/>
 	
 	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external" revision="d1860f83fc21b4f35a9049d5c0830790474dfcd7"/>
-	<project name="prebuilts" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts" revision="5a3cb46d98921b89381dd17cbc41442e6d140756"/>
+	<project name="prebuilts" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts" revision="952dc45582bee4b2a7b2e39680a38ee83e8f1b2c"/>
 	
 	<project name="llvm" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/llvm" revision="bd4ac51d47fde82256a65011d6cae58d63c5c1c0"/>
 	<project name="exoplayer" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/exoplayer" revision="22f9f98adf74715c3181596a495bac896120e0de"/>
