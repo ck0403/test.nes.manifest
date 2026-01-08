@@ -8,7 +8,7 @@
 
     
     <project name="sm6115_android14.0_ba02_r004_2w" path="sm6115_android14.0_ba02_r004_2w" revision="1cbf894f0c95789ea1a6c90c8d4d7074e2d1f233"/>
-	<project name="test.nes.manifest" path="test.nes.manifest" revision="aa744de859ac736e336dd8dedd4fdc3b4dc1df83"/>
+	<project name="test.nes.manifest" path="test.nes.manifest" revision="b373a3367d696cb4778d21b5306e416658c60e6c"/>
 
     
 	
@@ -16,22 +16,23 @@
 	<project name="target" path="sm6115_android14.0_ba02_r004_2w/target" revision="0483f6bcaa3331f78877c6d9945e6ade9aa25095"/>
 	<project name="Unpacking_Tool" path="sm6115_android14.0_ba02_r004_2w/Unpacking_Tool" revision="eda0f2eff7682f7066524eebf02c8d192a9d7e9b"/>
 	
-	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external" revision="8052515ede07e885ef24b0dddc878e79d821438f"/>
+	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external" revision="d1860f83fc21b4f35a9049d5c0830790474dfcd7"/>
+	<project name="prebuilts" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts"/>
 	
 	<project name="llvm" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/llvm" revision="bd4ac51d47fde82256a65011d6cae58d63c5c1c0"/>
-	<project name="exoplayer" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/exoplayer"/>
-	<project name="rust" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/rust"/>
-	<project name="angle" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/angle"/>
-	<project name="cldr" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cldr"/>
-	<project name="icu" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/icu"/>
-	<project name="tensorflow" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/tensorflow"/>
-	<project name="vixl" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/vixl"/>
-	<project name="jackson-databind" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/jackson-databind"/>
-	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python"/>
-	<project name="chromium-webview" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/chromium-webview"/>
-	<project name="libabigail" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/libabigail"/>
-	<project name="cronet" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cronet"/>
-	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader"/>	
+	<project name="exoplayer" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/exoplayer" revision="22f9f98adf74715c3181596a495bac896120e0de"/>
+	<project name="rust" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/rust" revision="71b57c90a8903c6a19948a3c3c1bbf3b3f886bf7"/>
+	<project name="angle" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/angle" revision="e1685c219abf47df41a06b6511f7a3ec7e94f311"/>
+	<project name="cldr" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cldr" revision="cf99ba10401cdb244c9b66ceab3cd7ee9fc59b59"/>
+	<project name="icu" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/icu" revision="95f3c18b3ec7f090f9ca08ebad6fcbf5ce6cbdbc"/>
+	<project name="tensorflow" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/tensorflow" revision="8bbc941acc18e143ee145d2eaf72624bbbc4905a"/>
+	<project name="vixl" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/vixl" revision="03cf2bd7e66914be864d329a7f67541ad4acc1e7"/>
+	<project name="jackson-databind" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/jackson-databind" revision="c40908b7d535bab47fc78d7555f6222593f35c79"/>
+	<project name="python" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/python" revision="311e77ce3348c62e992ab55bd37289f15aaba0b3"/>
+	<project name="chromium-webview" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/chromium-webview" revision="d1969fa2d9f808fb8a690af6f67ece22556bf751"/>
+	<project name="libabigail" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/libabigail" revision="a2af8933efc10ea78ebfcf1776821dd109bab110"/>
+	<project name="cronet" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/cronet" revision="4f8dab83c0f587acdffd440723a35cd84384e0d3"/>
+	<project name="swiftshader" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/swiftshader" revision="423684f309b6922b9d7d71792a4cd7e72f577d40"/>	
 	
 	
 	
