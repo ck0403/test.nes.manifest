@@ -17,6 +17,7 @@
 	<project name="Unpacking_Tool" path="sm6115_android14.0_ba02_r004_2w/Unpacking_Tool" revision="eda0f2eff7682f7066524eebf02c8d192a9d7e9b"/>
 	
 	<project name="external" path="sm6115_android14.0_ba02_r004_2w/qssi14/external" revision="d1860f83fc21b4f35a9049d5c0830790474dfcd7"/>
+	<project name="prebuilts" path="sm6115_android14.0_ba02_r004_2w/qssi14/prebuilts"/>
 	
 	<project name="llvm" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/llvm" revision="bd4ac51d47fde82256a65011d6cae58d63c5c1c0"/>
 	<project name="exoplayer" path="sm6115_android14.0_ba02_r004_2w/qssi14/external/exoplayer" revision="22f9f98adf74715c3181596a495bac896120e0de"/>
