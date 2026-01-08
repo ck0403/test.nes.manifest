@@ -54,8 +54,8 @@
 	
 	
 	<project name="cts" path="sm6115_android14.0_ba02_r004_2w/qssi14/target/cts"/>
-	<project name="frameworks_target" path="sm6115_android14.0_ba02_r004_2w/qssi14/target/frameworks"/>
-	<project name="prebuilts_target" path="sm6115_android14.0_ba02_r004_2w/qssi14/target/prebuilts"/>
+	<project name="frameworks_target" path="sm6115_android14.0_ba02_r004_2w/target/frameworks"/>
+	<project name="prebuilts_target" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts"/>
 	
 	
 		
