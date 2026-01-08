@@ -58,6 +58,7 @@
 	<project name="target.prebuilts" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts" revision="17b422a017c13eb4c91456187a15e9c7f9cb246d"/>
 	<project name="target.tools" path="sm6115_android14.0_ba02_r004_2w/target/tools"/>
 	<project name="target.vendor" path="sm6115_android14.0_ba02_r004_2w/target/vendor"/>
+	<project name="target.external" path="sm6115_android14.0_ba02_r004_2w/target/external"/>
 	
 	
 	<project name="target.maven_repo" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/maven_repo" revision="8e8ab256b24fb34d26937f750f89fbebddfd241c"/>
