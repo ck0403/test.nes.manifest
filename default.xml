@@ -64,7 +64,7 @@
 	<project name="target.prebuilt.abi-dumps" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/abi-dumps"/>
 	<project name="target.prebuilt.android-emulator" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/android-emulator"/>
 	<project name="target.prebuilt.clang" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/clang"/>
-	<project name="target.prebuilt.gcc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/clang"/>
+	<project name="target.prebuilt.gcc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/gcc"/>
 	<project name="target.prebuilt.gradle-plugin" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/gradle-plugin"/>
 	<project name="target.prebuilt.jdk" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/jdk"/>
 	<project name="target.prebuilt.misc" path="sm6115_android14.0_ba02_r004_2w/target/prebuilts/misc"/>
